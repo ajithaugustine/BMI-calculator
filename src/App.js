@@ -15,10 +15,17 @@ if(height<100) return alert("min height is 100cm")
     const bmi =( weight*10000)/(height*height)
     setvalue(bmi)
 
-    axios.post("http://localhost:3001",{weight,height}).then((res)=>{
+    axios.post("https://bmi-calculator-server.herokuapp.com/",{weight,height}).then((res)=>{
       console.log(res.data)
+      setTimeout(()=>{
+        window.location.reload()
+
+      },1000)
+    }).catch((err)=>{
+      console.log(err)
     })
   };
+
 
   return (
       <div>

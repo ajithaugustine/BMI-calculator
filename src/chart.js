@@ -8,17 +8,20 @@ function Chart() {
     const [bmi, setbmi] = useState('')
    useEffect(() => {
    const fetchdata = async ()=>{
-     const all = await axios.get('http://localhost:3001')
-     const alldata = await all.data
-     setheight(alldata.map((data)=>data.height))
-     setweight(alldata.map((data)=>data.weight))
-     setbmi(alldata.map((data)=>data.bmi))
-   }
-   setInterval(() => { 
-       fetchdata()
-   }, 8000);
+
+    axios.get('https://bmi-calculator-server.herokuapp.com').then((res)=>{
+      const alldata = res.data
+      setheight(alldata.map((data)=>data.height))
+      setweight(alldata.map((data)=>data.weight))
+      setbmi(alldata.map((data)=>data.bmi))
+    }).catch((err)=>{
+console.log(err)
+    }) }
+   fetchdata()
   
   }, [])
+
+
     return (
         <div className='chart'>
             <Bar data={{  labels: weight,
